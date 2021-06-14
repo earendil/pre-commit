@@ -11,6 +11,7 @@ from typing import Sequence
 
 import cfgv
 from identify.identify import ALL_TAGS
+from pyaml_env import parse_config
 
 import pre_commit.constants as C
 from pre_commit.color import add_color_option
@@ -18,11 +19,14 @@ from pre_commit.errors import FatalError
 from pre_commit.languages.all import all_languages
 from pre_commit.logging_handler import logging_handler
 from pre_commit.util import parse_version
-from pre_commit.util import yaml_load
 
 logger = logging.getLogger('pre_commit')
 
 check_string_regex = cfgv.check_and(cfgv.check_string, cfgv.check_regex)
+
+
+def yaml_load(data):
+    return parse_config(data=data)
 
 
 def check_type_tag(tag: str) -> None:
